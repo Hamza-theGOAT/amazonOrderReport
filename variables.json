@@ -1,0 +1,22 @@
+{
+    "ordRepoColz": {
+        "amazon-order-id": "Sales Receipt No",
+        "purchase-date": "Sales Receipt Date",
+        "order-status": "Order Status",
+        "fulfillment-channel": "Fulfillment Channel",
+        "sales-channel": "Sales Channel",
+        "ship-service-level": "Ship Service Level",
+        "product-name": "Product Name",
+        "sku": "SKU",
+        "asin": "ASIN",
+        "number-of-items": "Number of Items",
+        "item-status": "Item Status",
+        "quantity": "Product/Service Quantity",
+        "currency": "Currency",
+        "item-price": "Product/Service Amount",
+        "ship-city": "Shipping Address City",
+        "ship-state": "Shipping Address State",
+        "ship-postal-code": "Shipping Address Postal Code",
+        "ship-country": "Shipping Address Country"
+    }
+}
