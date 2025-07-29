@@ -18,5 +18,6 @@
         "ship-state": "Shipping Address State",
         "ship-postal-code": "Shipping Address Postal Code",
         "ship-country": "Shipping Address Country"
-    }
+    },
+    "ordWorkColz": ["Sales Receipt No", "Sales Receipt Date", "Product/Service Name", "Product/Service Quantity", "Product/Service Rate", "Product/Service Amount", "Shipping Address City", "Shipping Address Postal Code", "Shipping Address State", "Shipping Address Country"]
 }
