@@ -1,4 +1,11 @@
 {
+    "src": "source_dir",
+    "wrk": "working_dir",
+    "ordRepo": "amazonOrdersReport.txt",
+    "prod": "productManual.xlsx",
+    "sysRcrds": "productSales.xlsx",
+    "sysfltr": "Num",
+    "wbN": "AmazonOrderReport.xlsx",
     "ordRepoColz": {
         "amazon-order-id": "Sales Receipt No",
         "purchase-date": "Sales Receipt Date",
