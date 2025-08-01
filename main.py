@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import os
 import json
+from datetime import datetime as dt
+from formatz import formatWB
 
 
 def repoClean(dp: dict):
@@ -11,6 +13,11 @@ def repoClean(dp: dict):
     # Filter DF for Sales Channel and entries with valid amount
     df = df[(df['Sales Channel'] == 'Amazon.com') &
             (df['Product/Service Amount'].notna())]
+
+    # Correcting date column values
+    df['Sales Receipt Date'] = pd.to_datetime(
+        df['Sales Receipt Date']
+    ).dt.strftime('%m-%d-%Y')
 
     # Get Product/Service Name against SKUs
     df = pd.merge(df, prod[['Product/Service Name',
@@ -49,16 +56,23 @@ def toExcel(dp: dict):
                 sh = key.replace('_Exp', '')
                 value.to_excel(writer, sheet_name=sh, index=False)
 
+    print(f'Saved Extracts: {os.path.basename(wbN)}')
+    formatWB(wbN, wbN)
+    print(f'Formatted Extracts: {os.path.basename(wbN)}')
+
 
 def depen():
+    # Getting JSON variables
     with open('variables.json', 'r') as j:
         data = json.load(j)
 
+    # Reading row Amazon Order Report extracts
     ordRepo = os.path.join(data['src'], data['ordRepo'])
     amzOrd = pd.read_csv(
         ordRepo, delimiter='\t', encoding='utf-16', usecols=data['ordRepoColz'].keys()
     ).rename(columns=data['ordRepoColz'])
 
+    # Getting QBO records for comparison
     sysRcrds = pd.read_excel(
         os.path.join(data['src'], data['sysRcrds']),
         header=3
@@ -66,7 +80,6 @@ def depen():
     prod = pd.read_excel(os.path.join(data['src'], data['prod']))
 
     print(f'Amazon Order Report:\n{amzOrd}')
-
     return {
         "data": data,
         'amzOrd_Exp': amzOrd,
@@ -76,10 +89,12 @@ def depen():
 
 
 def main():
-    # Get dependencies for the script
-    dp = depen()
-    dp = repoClean(dp)
-    toExcel(dp)
+    dp = depen()  # Getting dependencies
+    print("="*100)
+    dp = repoClean(dp)  # Cleaning and formatting file
+    print("="*100)
+    toExcel(dp)  # Saving cleaned data to excel
+    print("="*100)
 
 
 if __name__ == '__main__':
